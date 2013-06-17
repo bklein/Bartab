@@ -3,21 +3,29 @@ require "./drink"
 
 tab = BarTab.new
 
-drinks = [
-  Drink.new(:vodka),
-  Drink.new(:rum),
-  Drink.new(:rum)
-]
+puts "Welcome to Bartab"
 
-drinks.each do |drink|
-  tab.add_drink(drink)
+def print_receipt(bartab)
+
+  puts "List of drinks consumed so far"
+  puts "=============================="
+
+  bartab.a_list_of_all_the_drinks_I_had.each do |drink|
+    puts drink
+    puts "-" * drink.length
+  end
+
+  puts "======"
+  puts "Total: #{bartab.balance}"
 end
 
-puts ""
-puts "List of drinks consumed"
-puts "======================="
+while true do
+  puts "Enter drink name"
+  drink_name = gets.chomp.downcase
 
-puts tab.a_list_of_all_the_drinks_I_had
+  break if drink_name == "q"
+  drink = Drink.new(drink_name.to_s)
+  tab.add_drink(drink)
 
-puts ""
-puts "Total: $#{tab.balance}"
+  print_receipt(tab)
+end
